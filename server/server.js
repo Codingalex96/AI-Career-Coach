@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Allow your frontend (Vite) to access your backend
+// ✅ Allow frontend (Vite) to access your backend
 app.use(cors({
   origin: "http://localhost:5173", // your frontend's URL
   methods: ["GET", "POST"],
