@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import ResumeForm from "./components/ResumeForm";
+import FeedbackDisplay from "./components/FeedbackDisplay";
+import { getAIFeedback } from "./api/aiApi";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [feedback, setFeedback] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (resumeText) => {
+    setLoading(true);
+    const aiFeedback = await getAIFeedback(resumeText);
+    setFeedback(aiFeedback);
+    setLoading(false);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-start py-12 px-4">
+      <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">
+        AI Career Coach
+      </h1>
+      <div className="w-full max-w-3xl bg-white p-8 rounded-xl shadow-lg">
+        <ResumeForm onSubmit={handleSubmit} />
+        {loading ? (
+          <p className="mt-4 text-gray-600 italic">Generating feedback...</p>
+        ) : (
+          <FeedbackDisplay feedback={feedback} />
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
-
-export default App

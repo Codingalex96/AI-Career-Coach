@@ -1,13 +1,23 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors"; // ⬅️ add this
 import aiRoutes from "./routes/aiRoutes.js";
 
 dotenv.config();
 
 const app = express();
+
+// ✅ Allow your frontend (Vite) to access your backend
+app.use(cors({
+  origin: "http://localhost:5173", // your frontend's URL
+  methods: ["GET", "POST"],
+  credentials: true
+}));
+
 app.use(express.json());
 
+// ✅ Your routes
 app.use("/api", aiRoutes);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
