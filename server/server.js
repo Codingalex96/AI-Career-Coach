@@ -7,16 +7,16 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Allow frontend (Vite) to access backend
+
 app.use(cors({
-  origin: "http://localhost:5173", // frontend's URL
+  origin: "http://localhost:5173", 
   methods: ["GET", "POST"],
   credentials: true
 }));
 
 app.use(express.json());
 
-// ✅ Routes
+
 app.use("/api", aiRoutes);
 
 const PORT = process.env.PORT || 5000;

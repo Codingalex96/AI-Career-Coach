@@ -17,7 +17,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-start py-12 px-4">
       <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">
-        AI Career Coach
+        AI Resume Assistant
       </h1>
       <div className="w-full max-w-3xl bg-white p-8 rounded-xl shadow-lg">
         <ResumeForm onSubmit={handleSubmit} />
